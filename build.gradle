@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'ua.panic'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url = "https://repo.papermc.io/repository/maven-public/" }
+    maven { url = "https://oss.sonatype.org/content/groups/public/" }
+    maven { url = "https://jitpack.io" }
+}
+
+dependencies {
+    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
+    implementation "net.kyori:adventure-api:4.14.0"
+    implementation "net.kyori:adventure-text-minimessage:4.14.0"
+    implementation "net.kyori:adventure-text-serializer-legacy:4.14.0"
+    implementation 'com.github.pengrad:java-telegram-bot-api:9.2.0'
+    implementation 'com.zaxxer:HikariCP:5.1.0'
+    implementation 'org.xerial:sqlite-jdbc:3.46.0.0'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.3'
+    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
+    compileOnly fileTree(dir: 'libs', include: ['PlayerPoints*.jar'])
+}
+
+def targetJavaVersion = 16
+java {
+    def jv = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = jv
+    targetCompatibility = jv
+    if (JavaVersion.current() < jv) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release.set(targetJavaVersion)
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') { expand props }
+}
+
+shadowJar {
+    archiveClassifier.set('')
+    configurations = [project.configurations.runtimeClasspath]
+    relocate 'net.kyori',          'ua.panic.pnctgreward.libs.kyori'
+    relocate 'com.pengrad',        'ua.panic.pnctgreward.libs.pengrad'
+    relocate 'com.zaxxer.hikari',  'ua.panic.pnctgreward.libs.hikari'
+    relocate 'org.slf4j',          'ua.panic.pnctgreward.libs.slf4j'
+    relocate 'org.xerial',         'ua.panic.pnctgreward.libs.sqlite'
+    relocate 'org.mariadb',        'ua.panic.pnctgreward.libs.mariadb'
+}
+
+tasks.build.dependsOn tasks.shadowJar

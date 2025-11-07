@@ -1,0 +1,64 @@
+Database: #настройка базы данных, достпные: MySQL, MariaDB, SQLite
+  Type: sqlite
+  sqlite:
+    file: plugins/pncTGReward/data.db
+  MariaDB/MySQL:
+    host: 127.0.0.1
+    port: 3306
+    database: tgreward
+    user: root
+    password: ''
+
+#Настройка бота в тг
+Telegram:
+  token: "PUT_YOUR_BOT_TOKEN"
+  campaign-id: "default"
+  rate-limit-seconds: 3
+
+#Вкл/выкл использвонании одной из экономик
+Economic:
+  Vault: true
+  PlayerPoints: true
+
+#Настройка наград
+Reward:
+  Vault: 1000
+  PlayerPoints: 100
+  Commands:
+    - 'give [player] diamond_sword'
+    -
+#Сообщения в игре
+Messages:
+  prefix: "<gray>[<light_purple>TG</light_purple>]</gray> "
+  already-linked: "<red>Этот телеграм уже привязан к другому нику.</red>"
+  name-already-linked: "<red>Этот ник уже привязан к другому телеграму.</red>"
+  claimed-already: "<yellow>Награда по кампании уже получена.</yellow>"
+  player-not-found: "<red>Игрок <white><name></white> не найден.</red>"
+  success-chat: "<green>Награда выдана! Спасибо за участие.</green>"
+  console-claim-log: "Выдана награда: tg=<tg_id> uuid=<uuid> name=<name> campaign=<campaign>"
+
+#сообщения бота в тг
+  telegram:
+    usage: "Использование: /reward <ник>"
+    ratelimited: "Слишком часто. Подожди пару секунд и попробуй снова."
+    claimed-already: "❌ Уже получали награду по этой кампании."
+    player-not-found: "❌ Игрок не найден: <name>"
+    name-already-linked: "❌ Этот ник уже привязан к другому Telegram."
+    tg-already-linked: "❌ Этот Telegram уже привязан к другому нику."
+    reward-success: "✅ Награда выдана игроку <name>"
+
+#Тайтл, который вылазиит при получении награды
+Title:
+  enabled: true
+  main: "<gradient:#8a2be2:#ff66ff>Награда получена!</gradient>"
+  sub: "<white>Забегай почаще :)</white>"
+  fadein: 10
+  stay: 50
+  fadeout: 10
+
+#Настройка звука при выдаче награды
+Sound:
+  enabled: true
+  name: "ENTITY_PLAYER_LEVELUP"
+  volume: 1.0
+  pitch: 1.0

@@ -1,0 +1,12 @@
+name: PncTGReward
+version: '1.0.2'
+main: ua.panic.pnctgreward.PncTGReward
+api-version: '1.16'
+commands:
+  pnctgr:
+    permission: pnctgr.admin
+permissions:
+  pnctgr.use:
+    default: true
+  pnctgr.admin:
+    default: op
