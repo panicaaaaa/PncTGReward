@@ -15,18 +15,13 @@ Telegram:
   campaign-id: "default"
   rate-limit-seconds: 3
 
-#Вкл/выкл использвонании одной из экономик
-Economic:
-  Vault: true
-  PlayerPoints: true
-
 #Настройка наград
 Reward:
-  Vault: 1000
-  PlayerPoints: 100
+  one-time: false #Использовать награду единоразово?
+  cooldown: 3600 #Если one-time == false, какой кулдаун использовать?
   Commands:
-    - 'give [player] diamond_sword'
-    -
+    - "p give [player] 100"
+
 #Сообщения в игре
 Messages:
   prefix: "<gray>[<light_purple>TG</light_purple>]</gray> "
@@ -39,13 +34,22 @@ Messages:
 
 #сообщения бота в тг
   telegram:
-    usage: "Использование: /reward <ник>"
-    ratelimited: "Слишком часто. Подожди пару секунд и попробуй снова."
-    claimed-already: "❌ Уже получали награду по этой кампании."
-    player-not-found: "❌ Игрок не найден: <name>"
-    name-already-linked: "❌ Этот ник уже привязан к другому Telegram."
-    tg-already-linked: "❌ Этот Telegram уже привязан к другому нику."
-    reward-success: "✅ Награда выдана игроку <name>"
+    usage:
+      - "Использование: */reward <ник>*"
+    ratelimited:
+      - "Подождите немного и повторите"
+    claimed-already:
+      - "❌ Уже получали награду по этой кампании."
+    player-not-found:
+      - "❌ Игрок не найден: <name>"
+    name-already-linked:
+      - "❌ Этот ник уже привязан к другому Telegram."
+    tg-already-linked:
+      - "❌ Этот Telegram уже привязан к другому нику."
+    reward-success:
+      - "✅ Награда выдана игроку <name>"
+    cooldown:
+      - "❌ Подождите ещё <time>"
 
 #Тайтл, который вылазиит при получении награды
 Title:
@@ -62,3 +66,19 @@ Sound:
   name: "ENTITY_PLAYER_LEVELUP"
   volume: 1.0
   pitch: 1.0
+
+#настройка форматирования времени
+formating_time:
+  time-one: "%s д. %s ч. %s м. %s с."
+  time-two: "%s ч. %s м. %s с."
+  time-three: "%s м. %s с."
+  time-four: "%s с."
+
+#Настройка отображения плейсхолдеров
+placeholders:
+  status:
+    yes: "<green>Привязано</green>"
+    no: "<red>Не привязано</red>"
+  cooldown:
+    yes: "<yellow><time></yellow>"
+    no: "<green>Вы можете забрать награду</green>"
